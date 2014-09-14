@@ -16,8 +16,8 @@ class Point implements Comparable<Point> {
 	}
 	
 	long getSquareDistance(Point point) {
-		return (point.getX() - x) * (point.getX() - x) 
-				+ (point.getY() - y) * (point.getY() - y);
+		return (long)(point.getX() - x) * (long)(point.getX() - x) 
+				+ (long)(point.getY() - y) * (long)(point.getY() - y);
 	}
 	
 	public int compareTo(Point point) {

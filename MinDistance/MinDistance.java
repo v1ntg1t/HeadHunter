@@ -18,12 +18,16 @@ public class MinDistance {
 
 		if(points.size() > 1) {
 			startTime = System.currentTimeMillis();
-			System.out.println(Math.sqrt(bruteFindMinSquareDistance(points)));
+			long minSquareDistance = bruteFindMinSquareDistance(points);
+			System.out.println(minSquareDistance);
+			System.out.println(Math.sqrt(minSquareDistance));
 			endTime = System.currentTimeMillis();
 			System.out.println("time: " + (endTime - startTime) + " mseconds");
 			
 			startTime = System.currentTimeMillis();
-			System.out.println(Math.sqrt(fastFindMinSquareDistance(points)));
+			double fastMinSquareDistance = fastFindMinSquareDistance(points);
+			System.out.println(fastMinSquareDistance);
+			System.out.println(Math.sqrt(fastMinSquareDistance));
 			endTime = System.currentTimeMillis();
 			System.out.println("time: " + (endTime - startTime) + " mseconds");
 		} else {

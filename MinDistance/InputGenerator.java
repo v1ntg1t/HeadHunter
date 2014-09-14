@@ -8,7 +8,7 @@ public class InputGenerator {
 	public static void main(String[] args) {
 		for(int i = 0; i < POINTS_NUMBER; i++) {
 			System.out.print(generateRandom(-POINTS_NUMBER, POINTS_NUMBER));
-			System.out.print(" ");
+			System.out.print("\t");
 			System.out.println(generateRandom(-POINTS_NUMBER, POINTS_NUMBER));
 		}
 	}
