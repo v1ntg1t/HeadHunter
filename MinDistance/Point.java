@@ -1,4 +1,4 @@
-class Point {
+class Point implements Comparable<Point> {
 	private final int x;
 	private final int y;
 	
@@ -15,8 +15,21 @@ class Point {
 		return y;
 	}
 	
-	int getSquareDistance(Point point) {
+	long getSquareDistance(Point point) {
 		return (point.getX() - x) * (point.getX() - x) 
 				+ (point.getY() - y) * (point.getY() - y);
+	}
+	
+	public int compareTo(Point point) {
+		int xDifference = x - point.getX();
+		return xDifference != 0 ? xDifference : y - point.getY();
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(x);
+		sb.append("\t");
+		sb.append(y);
+		return sb.toString();
 	}
 }

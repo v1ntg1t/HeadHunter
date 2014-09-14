@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -8,12 +9,23 @@ public class MinDistance {
 	private static final String INPUT_FILE_NAME = "in.txt";
 	private static final String COORDINATES_DELIMITER = "\\s+";
 	private static final String POINT_PATTERN = 
-			"(\\d+)" + COORDINATES_DELIMITER + "(\\d+)";
+			"(-?\\d+)" + COORDINATES_DELIMITER + "(-?\\d+)";
 	
 	public static void main(String[] args) {
+		long startTime = System.currentTimeMillis();
 		List<Point> points = initializePoints();
+		long endTime = System.currentTimeMillis();
+
 		if(points.size() > 1) {
+			startTime = System.currentTimeMillis();
 			System.out.println(findMinDistance(points));
+			endTime = System.currentTimeMillis();
+			System.out.println("time: " + (endTime - startTime) + " mseconds");
+			
+			startTime = System.currentTimeMillis();
+			System.out.println(findMinDistanceFast(points));
+			endTime = System.currentTimeMillis();
+			System.out.println("time: " + (endTime - startTime) + " mseconds");
 		} else {
 			System.out.println("Input data has less than 2 points");
 		}
@@ -49,16 +61,22 @@ public class MinDistance {
 	}
 
 	private static double findMinDistance(List<Point> points) {
-		int minSquareDistance = Integer.MAX_VALUE;
+		long minSquareDistance = Long.MAX_VALUE;
 		for(int i = 0; i < points.size() - 1; i++) {
 			Point point = points.get(i);
 			for(int j = i + 1; j < points.size(); j++) {
-				int squareDistance = point.getSquareDistance(points.get(j));
+				long squareDistance = point.getSquareDistance(points.get(j));
 				if(squareDistance < minSquareDistance) {
 					minSquareDistance = squareDistance;
 				}
 			}
 		}
 		return Math.sqrt(minSquareDistance);
+	}
+	
+	private static double findMinDistanceFast(List<Point> points) {
+		Collections.sort(points);
+		long minSquareDistance = Long.MAX_VALUE;
+		return -1.0;	
 	}
 }
