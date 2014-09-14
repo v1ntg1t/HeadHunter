@@ -18,12 +18,12 @@ public class MinDistance {
 
 		if(points.size() > 1) {
 			startTime = System.currentTimeMillis();
-			System.out.println(findMinDistance(points));
+			System.out.println(Math.sqrt(bruteFindMinSquareDistance(points)));
 			endTime = System.currentTimeMillis();
 			System.out.println("time: " + (endTime - startTime) + " mseconds");
 			
 			startTime = System.currentTimeMillis();
-			System.out.println(findMinDistanceFast(points));
+			System.out.println(Math.sqrt(fastFindMinSquareDistance(points)));
 			endTime = System.currentTimeMillis();
 			System.out.println("time: " + (endTime - startTime) + " mseconds");
 		} else {
@@ -59,8 +59,8 @@ public class MinDistance {
 		}
 		return null;
 	}
-
-	private static double findMinDistance(List<Point> points) {
+	
+	private static long bruteFindMinSquareDistance(List<Point> points) {
 		long minSquareDistance = Long.MAX_VALUE;
 		for(int i = 0; i < points.size() - 1; i++) {
 			Point point = points.get(i);
@@ -71,12 +71,23 @@ public class MinDistance {
 				}
 			}
 		}
-		return Math.sqrt(minSquareDistance);
+		return minSquareDistance;
+	}
+
+	private static double fastFindMinSquareDistance(List<Point> points) {
+		Collections.sort(points);
+		return recur(points);	
 	}
 	
-	private static double findMinDistanceFast(List<Point> points) {
-		Collections.sort(points);
+	private static long recur(List<Point> points) {
 		long minSquareDistance = Long.MAX_VALUE;
-		return -1.0;	
+		int pointsNumber = points.size();
+		if(pointsNumber < 4) {
+			return bruteFindMinSquareDistance(points);
+		}
+		int mediumIndex = pointsNumber / 2;
+		long leftMin = recur(points.subList(0, mediumIndex));
+		long rightMin = recur(points.subList(mediumIndex, pointsNumber));
+		return leftMin < rightMin ? leftMin : rightMin;
 	}
 }

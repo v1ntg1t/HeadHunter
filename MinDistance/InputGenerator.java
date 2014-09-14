@@ -1,5 +1,5 @@
 public class InputGenerator {
-	private static final int POINTS_NUMBER = 10000;
+	private static final int POINTS_NUMBER = 100000;
 	
 	private static int generateRandom(int min, int max) {
 		return (int)Math.round(Math.random() * Math.abs(max - min) + min);
