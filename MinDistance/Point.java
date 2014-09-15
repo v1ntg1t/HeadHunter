@@ -1,4 +1,6 @@
-class Point implements Comparable<Point> {
+import java.util.Comparator;
+
+class Point {
 	private final int x;
 	private final int y;
 	
@@ -18,11 +20,6 @@ class Point implements Comparable<Point> {
 	long getSquareDistance(Point point) {
 		return (long)(point.getX() - x) * (long)(point.getX() - x) 
 				+ (long)(point.getY() - y) * (long)(point.getY() - y);
-	}
-	
-	public int compareTo(Point point) {
-		int xDifference = x - point.getX();
-		return xDifference != 0 ? xDifference : y - point.getY();
 	}
 	
 	public String toString() {

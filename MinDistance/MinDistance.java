@@ -79,7 +79,7 @@ public class MinDistance {
 	}
 
 	private static double fastFindMinSquareDistance(List<Point> points) {
-		Collections.sort(points);
+		Collections.sort(points, new ComparatorX());
 		return recur(points);	
 	}
 	
@@ -115,14 +115,41 @@ public class MinDistance {
 				break;			
 			}
 		}
-
 		
+		long borderMin = findBorderMin(
+				points.subList(leftBorderPointIndex, rightBorderPointIndex + 1),
+				min
+		);
+		
+/*		
 		long borderMin = bruteFindMinSquareDistance(
 				points.subList(
 						leftBorderPointIndex, rightBorderPointIndex + 1
 				)
 		);
+*/
 		return min < borderMin ? min : borderMin;
 	}
 	
+	private static long findBorderMin(List<Point> points, long min) {
+		long borderMin = Long.MAX_VALUE;
+		int pointsNumber = points.size();
+		if(pointsNumber > 1) {
+			Collections.sort(points, new ComparatorY());
+			for(int i = 1; i < pointsNumber; i++) {
+				for(int j = i - 1; j >= 0; j--) {
+					Point upperPoint = points.get(i);
+					Point bottomPoint = points.get(j);
+					if(upperPoint.getY() - bottomPoint.getY() > min) {
+						break;
+					}
+					long squareDistance = upperPoint.getSquareDistance(bottomPoint);
+					if(squareDistance < borderMin) {
+						borderMin = squareDistance;
+					}
+				}
+			}
+		}
+		return borderMin;
+	}
 }
