@@ -1,1 +1,0 @@
-java InputGenerator > in.txt

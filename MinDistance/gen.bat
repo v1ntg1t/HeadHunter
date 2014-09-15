@@ -1,0 +1,1 @@
+java -cp bin v1nt.hh.mindist.util.InputGenerator %1% 1> res/in.txt

@@ -1,1 +1,1 @@
-del *.class
+rd /S /Q bin
