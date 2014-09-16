@@ -34,9 +34,15 @@ public class MinDistance {
 			return bruteMinSquareDistanceSearch(points);
 		}
 		long minSquareDistance = findWithoutBorderMinSquareDistance(points);
+		if(minSquareDistance == 0) {
+			return 0;
+		}
 		List<Point> borderPoints = findBorderPoints(points, minSquareDistance);
 		long borderMinSquareDistance = findBorderMinSquareDistance(
 				borderPoints, minSquareDistance);
+		if(borderMinSquareDistance == 0) {
+			return 0;
+		}
 		return minSquareDistance < borderMinSquareDistance 
 				? minSquareDistance : borderMinSquareDistance;
 	}
@@ -48,6 +54,9 @@ public class MinDistance {
 			Point point = points.get(i);
 			for(int j = i + 1; j < pointsNumber; j++) {
 				long squareDistance = point.getSquareDistance(points.get(j));
+				if(squareDistance == 0) {
+					return 0;
+				}
 				if(squareDistance < minSquareDistance) {
 					minSquareDistance = squareDistance;
 				}
@@ -61,8 +70,14 @@ public class MinDistance {
 		int mediumIndex = pointsNumber / 2;
 		long leftHalfMinSquareDistance = recursiveMinSquareDistanceSearch(
 				points.subList(0, mediumIndex));
+		if(leftHalfMinSquareDistance == 0) {
+			return 0;
+		}
 		long rightHalfMinSquareDistance = recursiveMinSquareDistanceSearch(
 				points.subList(mediumIndex, pointsNumber));
+		if(rightHalfMinSquareDistance == 0) {
+			return 0;
+		}
 		return leftHalfMinSquareDistance < rightHalfMinSquareDistance 
 				? leftHalfMinSquareDistance : rightHalfMinSquareDistance;
 	}
@@ -124,6 +139,9 @@ public class MinDistance {
 					break;
 				}
 				long squareDistance = upper.getSquareDistance(bottom);
+				if(squareDistance == 0) {
+					return 0;
+				}
 				if(squareDistance < borderMinSquareDistance) {
 					borderMinSquareDistance = squareDistance;
 				}
