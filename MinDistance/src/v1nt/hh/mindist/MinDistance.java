@@ -110,21 +110,22 @@ public class MinDistance {
 	
 	private static long findBorderMinSquareDistance(List<Point> points, 
 			long minSquareDistance) {
-		long borderMinSquareDistance = Long.MAX_VALUE;
 		int pointsNumber = points.size();
-		if(pointsNumber > 1) {
-			Collections.sort(points, Y_COMPARATOR);
-			for(int i = 1; i < pointsNumber; i++) {
-				for(int j = i - 1; j >= 0; j--) {
-					Point upper = points.get(i);
-					Point bottom = points.get(j);
-					if(upper.getY() - bottom.getY() > minSquareDistance) {
-						break;
-					}
-					long squareDistance = upper.getSquareDistance(bottom);
-					if(squareDistance < borderMinSquareDistance) {
-						borderMinSquareDistance = squareDistance;
-					}
+		if(pointsNumber < 2) {
+			return Long.MAX_VALUE;
+		}
+		Collections.sort(points, Y_COMPARATOR);
+		long borderMinSquareDistance = Long.MAX_VALUE;
+		for(int i = 1; i < pointsNumber; i++) {
+			for(int j = i - 1; j >= 0; j--) {
+				Point upper = points.get(i);
+				Point bottom = points.get(j);
+				if(upper.getY() - bottom.getY() > minSquareDistance) {
+					break;
+				}
+				long squareDistance = upper.getSquareDistance(bottom);
+				if(squareDistance < borderMinSquareDistance) {
+					borderMinSquareDistance = squareDistance;
 				}
 			}
 		}
